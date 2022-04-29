@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="4.0.0" type="plugin" group="system" method="upgrade">
+	<name>PLG_SITE_FORM_OVERRIDE</name>
+	<creationDate>October 2021</creationDate>
+	<author>ConseilGouz</author>
+	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
+	<authorUrl>https://www.conseilgouz.com</authorUrl>
+	<copyright>(C)2021 ConseilGouz. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<version>2.0.1</version>
+	<description>PLG_SITE_FORM_OVERRIDE_DESCRIPTION</description>
+	<scriptfile>script.php</scriptfile>
+	<changelogurl>https://www.conseilgouz.com/updates/plg_site_form_override_changelog.xml</changelogurl>
+	<files>
+		<filename plugin="site_form_override">site_form_override.php</filename>
+	</files>
+	<languages folder="language">
+        <language tag="en-GB">en-GB/plg_system_site_form_override.ini</language>
+        <language tag="en-GB">en-GB/plg_system_site_form_override.sys.ini</language>
+        <language tag="fr-FR">fr-FR/plg_system_site_form_override.ini</language>
+        <language tag="fr-FR">fr-FR/plg_system_site_form_override.sys.ini</language>
+    </languages>	
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field 
+				name="site_com_name" 
+				type="textarea" 
+				size="44" 
+				default="" 
+				label="PLG_SITE_FORM_OVERRIDE_COM_LABEL" 
+				description="PLG_SITE_FORM_OVERRIDE_COM_DESC" />
+            </fieldset>
+		</fields>
+	</config>
+    <updateservers>
+        <server type="extension" priority="1" name="PLG_SITE_FORM_OVERRIDE">https://www.conseilgouz.com/updates/plg_site_form_override_update.xml</server>
+    </updateservers>
+	
+</extension>
