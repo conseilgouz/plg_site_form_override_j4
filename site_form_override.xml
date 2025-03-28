@@ -38,7 +38,7 @@
 		</fields>
 	</config>
     <updateservers>
-        <server type="extension" priority="1" name="PLG_SITE_FORM_OVERRIDE">https://www.conseilgouz.com/updates/site_form_override_update.xml</server>
+        <server type="extension" priority="1" name="PLG_SITE_FORM_OVERRIDE">https://raw.githubusercontent.com/conseilgouz/updates_github/master/plg_site_form_override_update.xml</server>
     </updateservers>
 	
 </extension>

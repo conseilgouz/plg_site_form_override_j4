@@ -99,7 +99,6 @@ class plgSystemSite_form_overrideInstallerScript
 		}
 		
 		// remove obsolete update sites
-		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true)
 			->delete('#__update_sites')
 			->where($db->quoteName('location') . ' like "%432473037d.url-de-test.ws/%"');
