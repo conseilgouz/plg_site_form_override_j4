@@ -9,6 +9,7 @@
         <change>
             <item>Becomes a service provider</item>
 			<item>Dynamic version display</item>
+			<item>Update server on github</item>
         </change>
 	</changelog>
 	<changelog>
