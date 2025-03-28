@@ -5,14 +5,17 @@
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<copyright>(C)2021 ConseilGouz. All rights reserved.</copyright>
-	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<version>2.0.1</version>
+	<copyright>(C)2025 ConseilGouz. All rights reserved.</copyright>
+	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+	<version>2.1.0</version>
 	<description>PLG_SITE_FORM_OVERRIDE_DESCRIPTION</description>
+    <namespace path="src">Conseilgouz\Plugin\System\SiteFormOverride</namespace>
 	<scriptfile>script.php</scriptfile>
-	<changelogurl>https://www.conseilgouz.com/updates/plg_site_form_override_changelog.xml</changelogurl>
+	<changelogurl>https://raw.githubusercontent.com/conseilgouz/plg_site_form_override_j4/master/site_form_override_changelog.xml</changelogurl>
 	<files>
-		<filename plugin="site_form_override">site_form_override.php</filename>
+		<folder plugin="site_form_override">services</folder>
+		<folder>src</folder>
+        <filename>index.html</filename>
 	</files>
 	<languages folder="language">
         <language tag="en-GB">en-GB/plg_system_site_form_override.ini</language>
@@ -22,7 +25,8 @@
     </languages>	
 	<config>
 		<fields name="params">
-			<fieldset name="basic">
+			<fieldset name="basic" addfieldprefix="Conseilgouz\Plugin\System\SiteFormOverride\Field">
+				<field name="version" type="version"  margintop="-3em"  extension="site_form_override" />
 				<field 
 				name="site_com_name" 
 				type="textarea" 
@@ -34,7 +38,7 @@
 		</fields>
 	</config>
     <updateservers>
-        <server type="extension" priority="1" name="PLG_SITE_FORM_OVERRIDE">https://www.conseilgouz.com/updates/plg_site_form_override_update.xml</server>
+        <server type="extension" priority="1" name="PLG_SITE_FORM_OVERRIDE">https://www.conseilgouz.com/updates/site_form_override_update.xml</server>
     </updateservers>
 	
 </extension>
