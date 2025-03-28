@@ -18,7 +18,7 @@ use Joomla\Database\DatabaseInterface;
 class plgSystemSite_form_overrideInstallerScript
 {
 	private $min_joomla_version      = '4.0.0';
-	private $min_php_version         = '7.2';
+	private $min_php_version         = '7.4';
 	private $name                    = 'Site Form Override';
 	private $exttype                 = 'plugin';
 	private $extname                 = 'system_site_form_override';
@@ -97,6 +97,22 @@ class plgSystemSite_form_overrideInstallerScript
 				File::delete($file);
 			}
 		}
+		
+		// remove obsolete update sites
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		$query = $db->getQuery(true)
+			->delete('#__update_sites')
+			->where($db->quoteName('location') . ' like "%432473037d.url-de-test.ws/%"');
+		$db->setQuery($query);
+		$db->execute();
+		// Simple Isotope is now on Github
+		$query = $db->getQuery(true)
+			->delete('#__update_sites')
+			->where($db->quoteName('location') . ' like "%conseilgouz.com/updates/site_form_override%"');
+		$db->setQuery($query);
+		$db->execute();
+
+		
 	}
 
 	// Check if Joomla version passes minimum requirement
@@ -151,6 +167,7 @@ class plgSystemSite_form_overrideInstallerScript
 		$db->execute();
 		Factory::getCache()->clean('_system');
 	}
+	
     public function delete($files = [])
     {
         foreach ($files as $file) {
