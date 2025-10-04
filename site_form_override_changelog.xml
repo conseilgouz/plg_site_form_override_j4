@@ -2,6 +2,18 @@
 	<changelog>
 		<element>site_form_override</element>
 		<type>plugin</type>
+		<version>2.2.0</version>
+        <note>
+            <item>Update : 04/10/2025</item>
+        </note>
+        <change>
+            <item>Joomla 6.x compatibility</item>
+			<item>Use ConseilGouz Library</item>
+        </change>
+	</changelog>
+	<changelog>
+		<element>site_form_override</element>
+		<type>plugin</type>
 		<version>2.1.0</version>
         <note>
             <item>Update : 28/03/2025</item>

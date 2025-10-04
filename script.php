@@ -1,7 +1,6 @@
 <?php
 /**
-* Site Form Override  - Joomla 4.x/5.x Plugin
-* Version			: 2.1.0
+* Site Form Override  - Joomla 4.x/5.x/6.x Plugin
 * Package			: Site form override
 * copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -10,9 +9,9 @@
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\Filesystem\Folder;
 use Joomla\CMS\Version;
 use Joomla\Filesystem\File;
+use Joomla\Filesystem\Folder;
 use Joomla\Database\DatabaseInterface;
 
 class plgSystemSite_form_overrideInstallerScript
@@ -23,6 +22,7 @@ class plgSystemSite_form_overrideInstallerScript
     private $exttype                 = 'plugin';
     private $extname                 = 'system_site_form_override';
     private $previous_version        = '';
+    private $newlib_version	         = '';
     private $lang;
     private $dir           = null;
     private $installerName = 'system_site_form_overrideinstaller';
@@ -55,16 +55,11 @@ class plgSystemSite_form_overrideInstallerScript
         if (($type == 'install') || ($type == 'update')) { // remove obsolete dir/files
             $this->postinstall_cleanup();
         }
-
-        switch ($type) {
-            case 'install': $message = Text::_('ISO_POSTFLIGHT_INSTALLED');
-                break;
-            case 'uninstall': $message = Text::_('ISO_POSTFLIGHT_UNINSTALLED');
-                break;
-            case 'update': $message = Text::_('ISO_POSTFLIGHT_UPDATED');
-                break;
-            case 'discover_install': $message = Text::_('ISO_POSTFLIGHT_DISC_INSTALLED');
-                break;
+        if (!$this->checkLibrary('conseilgouz')) { // need library installation
+            $ret = $this->installPackage('lib_conseilgouz');
+            if ($ret) {
+                Factory::getApplication()->enqueueMessage('ConseilGouz Library ' . $this->newlib_version . ' installed', 'notice');
+            }
         }
         return true;
     }
@@ -147,6 +142,41 @@ class plgSystemSite_form_overrideInstallerScript
 
         return true;
     }
+    private function checkLibrary($library)
+    {
+        $file = $this->dir.'/lib_conseilgouz/conseilgouz.xml';
+        if (!is_file($file)) {// library not installed
+            return false;
+        }
+        $xml = simplexml_load_file($file);
+        $this->newlib_version = $xml->version;
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+        $conditions = array(
+             $db->qn('type') . ' = ' . $db->q('library'),
+             $db->qn('element') . ' = ' . $db->quote($library)
+            );
+        $query = $db->getQuery(true)
+                ->select('manifest_cache')
+                ->from($db->quoteName('#__extensions'))
+                ->where($conditions);
+        $db->setQuery($query);
+        $manif = $db->loadObject();
+        if ($manif) {
+            $manifest = json_decode($manif->manifest_cache);
+            if ($manifest->version >= $this->newlib_version) { // compare versions
+                return true; // library ok
+            }
+        }
+        return false; // need library
+    }
+    private function installPackage($package)
+    {
+        $tmpInstaller = new Joomla\CMS\Installer\Installer();
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+        $tmpInstaller->setDatabase($db);
+        $installed = $tmpInstaller->install($this->dir . '/' . $package);
+        return $installed;
+    }
     private function uninstallInstaller()
     {
         if (! is_dir(JPATH_PLUGINS . '/system/' . $this->installerName)) {
@@ -164,7 +194,8 @@ class plgSystemSite_form_overrideInstallerScript
             ->where($db->quoteName('type') . ' = ' . $db->quote('plugin'));
         $db->setQuery($query);
         $db->execute();
-        Factory::getApplication()->getCache()->clean('_system');
+		$cachecontroller = Factory::getContainer()->get(CacheControllerFactoryInterface::class)->createCacheController(s);
+		$cachecontroller->clean('_system');
     }
 
     public function delete($files = [])

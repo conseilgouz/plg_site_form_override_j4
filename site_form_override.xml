@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="4.0.0" type="plugin" group="system" method="upgrade">
 	<name>PLG_SITE_FORM_OVERRIDE</name>
-	<creationDate>October 2021</creationDate>
+	<creationDate>2025-10-04</creationDate>
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
 	<copyright>(C)2025 ConseilGouz. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
-	<version>2.1.0</version>
+	<version>2.2.0</version>
 	<description>PLG_SITE_FORM_OVERRIDE_DESCRIPTION</description>
     <namespace path="src">Conseilgouz\Plugin\System\SiteFormOverride</namespace>
 	<scriptfile>script.php</scriptfile>
@@ -25,7 +25,7 @@
     </languages>	
 	<config>
 		<fields name="params">
-			<fieldset name="basic" addfieldprefix="Conseilgouz\Plugin\System\SiteFormOverride\Field">
+			<fieldset name="basic" addfieldprefix="ConseilGouz\Library\Field">
 				<field name="version" type="version"  margintop="-3em"  extension="site_form_override" />
 				<field 
 				name="site_com_name" 

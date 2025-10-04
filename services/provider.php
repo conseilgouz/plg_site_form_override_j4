@@ -1,6 +1,6 @@
 <?php
 /**
- * @package		Site Form Override system plugin for J4.x/5.x
+ * @package		Site Form Override system plugin for J4.x/5.x/6.x
  * @author		ConseilGouz
  * @copyright	Copyright (C) 2025 ConseilGouz. All rights reserved.
  * license      https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL

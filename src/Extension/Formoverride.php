@@ -1,6 +1,6 @@
 <?php
 /**
- * @package		Site Form Override system plugin for J4.x/5.x
+ * @package		Site Form Override system plugin for J4.x/5.x/6.x
  * @author    ConseilGouz from Randy Carey  http://iCueProject.com
  * @copyright 2025 ConseilGouz
  * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv2 only
@@ -40,7 +40,7 @@ class Formoverride extends CMSPlugin implements SubscriberInterface {
 			$com_str = $this->params->get('site_com_name');
 			if($com_str==''){return;}
 			$com_array = explode(',',$com_str);
-			$com =$app->input->get('option');
+			$com =$app->getInput()->get('option');
 			if(in_array($com,$com_array)){
 				Form::addFormPath(JPATH_SITE.'/components/'.$com.'/forms');
 				Form::addFormPath(JPATH_SITE.'/templates/'.$app->getTemplate().'/forms/'.$com);
